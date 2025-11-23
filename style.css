@@ -1,0 +1,431 @@
+/* --- Global Styles & Neon Palette --- */
+:root {
+    --bg-dark: #0A0B1A;            /* Very dark blue/indigo */
+    --text-light: #F0F4FF;         /* Off-white */
+    --accent-neon-pink: #FF0077; /* Highlight Pink */
+    --accent-neon-blue: #00FFFF; /* Highlight Cyan */
+    --primary-purple: #8A2BE2;    /* Amethyst/Base accent */
+    --card-bg: #1A1C30;            /* Dark card background */
+    --font-heading: 'Space Grotesk', sans-serif;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: var(--font-heading);
+    color: var(--text-light);
+    background-color: var(--bg-dark);
+    line-height: 1.6;
+    overflow-x: hidden; /* Prevent horizontal scroll on mobile */
+}
+
+section {
+    padding: 80px 5%;
+}
+
+/* --- Navigation Bar (Flexbox & Responsive) --- */
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 5%;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background-color: rgba(10, 11, 26, 0.95); /* Semi-transparent dark BG */
+    backdrop-filter: blur(5px);
+    border-bottom: 1px solid rgba(138, 43, 226, 0.2);
+}
+
+.logo {
+    font-size: 1.8em;
+    font-weight: 700;
+    color: var(--text-light);
+}
+
+.logo-dot {
+    color: var(--accent-neon-pink);
+}
+
+.nav-links {
+    display: flex;
+    list-style: none;
+}
+
+.nav-links li a {
+    color: var(--text-light);
+    text-decoration: none;
+    margin-left: 30px;
+    opacity: 0.7;
+    transition: opacity 0.3s, color 0.3s;
+}
+
+.nav-links li a:hover {
+    color: var(--accent-neon-blue);
+    opacity: 1;
+}
+
+.nav-cta, .btn-primary, .btn-secondary {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+.nav-cta {
+    background-color: var(--accent-neon-pink);
+    color: var(--bg-dark);
+    margin-left: 30px;
+}
+.nav-cta:hover {
+    background-color: #ff3399;
+    box-shadow: 0 0 15px var(--accent-neon-pink);
+}
+
+/* --- Hero Section (Split Layout) --- */
+.hero-section {
+    min-height: 90vh;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 5%;
+    position: relative; /* Needed for absolute positioning of background effects */
+}
+
+/* Add a subtle background gradient for the hero section to match Dribbble shot */
+.hero-section::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(circle at 60% 10%, rgba(138, 43, 226, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 20% 90%, rgba(0, 255, 255, 0.05) 0%, transparent 50%);
+    pointer-events: none; /* Allows clicks to pass through */
+    z-index: 0;
+}
+
+.hero-content {
+    flex: 1;
+   margin-top: -20px;
+    max-width: 600px;
+}
+
+.pre-title {
+    color: var(--primary-purple);
+    font-size: 1.1em;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+}
+
+.hero-content h1 {
+    font-size: 4.5em;
+    line-height: 1.1;
+    margin: 15px 0 25px 0;
+}
+
+.accent-text {
+    color: var(--accent-neon-blue);
+    text-shadow: 0 0 10px rgba(0, 255, 255, 0.5);
+}
+
+.subtitle {
+    font-size: 1.2em;
+    opacity: 0.8;
+    margin-bottom: 30px;
+}
+
+.hero-actions .btn-primary {
+    background-color: var(--accent-neon-pink);
+    color: var(--bg-dark);
+}
+.hero-actions .btn-secondary {
+    background: transparent;
+    color: var(--accent-neon-blue);
+    border: 2px solid var(--accent-neon-blue);
+    margin-left: 15px;
+}
+.hero-actions .btn-primary:hover {
+    transform: translateY(-3px);
+}
+.hero-actions .btn-secondary:hover {
+    background-color: rgba(0, 255, 255, 0.1);
+}
+
+/* Styling for the container that holds the 3D model (the big circle) */
+.hero-visual {
+    flex: 1;
+    display: flex;
+    justify-content: center; /* Center the canvas inside */
+    align-items: center;
+    position: relative;
+    width: 100%;
+    max-width: 550px; /* Control the overall size of the circle */
+    height: 550px;    /* Make it a perfect circle */
+    border-radius: 50%;
+    background: radial-gradient(circle at 50% 50%, rgba(138, 43, 226, 0.2) 0%, rgba(10, 11, 26, 0) 70%);
+    border: 2px solid var(--primary-purple); /* The outer glow/border */
+    box-shadow: 0 0 40px rgba(138, 43, 226, 0.5), inset 0 0 20px rgba(138, 43, 226, 0.3); /* Inner and outer glow */
+    overflow: hidden; /* Ensure 3D model stays within the circle */
+    margin-left: 50px; /* Push it slightly from the text */
+}
+
+/* Ensure the Three.js canvas fills its parent (.hero-visual) */
+#three-js-canvas canvas {
+    display: block;
+    width: 100% !important; 
+    height: 100% !important;
+    position: absolute; /* Take full control inside the parent */
+    top: 0;
+    left: 0;
+}
+
+/* --- Features Section (Responsive Grid) --- */
+.features-section h2 {
+    text-align: center;
+    font-size: 2.5em;
+    margin-bottom: 50px;
+    color: var(--accent-neon-pink);
+}
+
+.feature-grid {
+    display: grid;
+    /* 4 columns on desktop, adapts down to 2, then 1 */
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 30px;
+}
+
+.feature-card {
+    background-color: var(--card-bg);
+    padding: 30px;
+    border-radius: 10px;
+    border: 1px solid rgba(138, 43, 226, 0.1);
+    transition: all 0.3s;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+}
+
+.feature-card:hover {
+    transform: translateY(-5px);
+    border-color: var(--accent-neon-pink);
+    box-shadow: 0 0 20px rgba(255, 0, 119, 0.3);
+}
+
+.icon-wrap {
+    font-size: 3em;
+    width: 60px;
+    height: 60px;
+    line-height: 60px;
+    text-align: center;
+    margin-bottom: 15px;
+    border-radius: 50%;
+    background-color: rgba(0, 255, 255, 0.1); /* Subtle background glow */
+    color: var(--accent-neon-blue);
+}
+
+.feature-card h3 {
+    color: var(--text-light);
+    font-size: 1.5em;
+    margin-bottom: 10px;
+}
+
+/* --- NEW CONTACT US SECTION STYLES --- */
+.contact-us-section {
+    background-color: var(--bg-dark); /* Ensure separation */
+    border-top: 1px solid rgba(0, 255, 255, 0.1);
+    border-bottom: 1px solid rgba(0, 255, 255, 0.1);
+}
+
+.contact-us-section h2 {
+    color: var(--accent-neon-blue);
+    text-align: center;
+    font-size: 2.5em;
+    margin-bottom: 10px;
+}
+
+.contact-subtitle {
+    text-align: center;
+    font-size: 1.1em;
+    opacity: 0.7;
+    margin-bottom: 40px;
+}
+
+.contact-form-container {
+    display: flex;
+    justify-content: center;
+    gap: 40px;
+    max-width: 1000px;
+    margin: 0 auto;
+}
+
+.contact-form {
+    flex: 2;
+    background-color: var(--card-bg);
+    padding: 30px;
+    border-radius: 10px;
+    border: 1px solid var(--primary-purple);
+    box-shadow: 0 0 20px rgba(138, 43, 226, 0.2);
+}
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: bold;
+    color: var(--accent-neon-blue);
+    font-size: 0.9em;
+}
+
+.form-group input[type="text"],
+.form-group input[type="email"],
+.form-group textarea {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 5px;
+    background-color: rgba(0, 0, 0, 0.3);
+    color: var(--text-light);
+    font-family: inherit;
+    font-size: 1em;
+    transition: border-color 0.3s, box-shadow 0.3s;
+}
+
+.form-group input:focus,
+.form-group textarea:focus {
+    outline: none;
+    border-color: var(--accent-neon-pink);
+    box-shadow: 0 0 10px rgba(255, 0, 119, 0.5);
+}
+
+.form-submit-btn {
+    width: 100%;
+    background-color: var(--accent-neon-pink);
+    color: var(--bg-dark);
+    padding: 15px;
+    border-radius: 12px;
+    font-size: 1.1em;
+}
+
+.contact-info-card {
+    flex: 1;
+    background-color: var(--card-bg);
+    padding: 30px;
+    border-radius: 10px;
+    border: 1px solid var(--accent-neon-pink);
+    box-shadow: 0 0 20px rgba(255, 0, 119, 0.2);
+}
+
+.contact-info-card h3 {
+    color: var(--accent-neon-pink);
+    margin-bottom: 20px;
+    border-bottom: 1px solid rgba(255, 0, 119, 0.2);
+    padding-bottom: 10px;
+}
+
+.contact-info-card p {
+    margin-bottom: 15px;
+    font-size: 0.95em;
+}
+
+.contact-info-card p strong {
+    color: var(--accent-neon-blue);
+}
+
+.social-icons {
+    margin-top: 30px;
+    display: flex;
+    gap: 15px;
+}
+
+.social-icons .icon-wrap {
+    font-size: 1em;
+    width: 40px;
+    height: 40px;
+    background-color: var(--accent-neon-pink);
+    color: var(--bg-dark);
+    line-height: 40px;
+    cursor: pointer;
+    transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.social-icons .icon-wrap:hover {
+    transform: scale(1.1);
+    box-shadow: 0 0 10px var(--accent-neon-pink);
+}
+
+/* --- Footer CTA --- */
+.footer-cta {
+    text-align: center;
+    padding: 30px 5%;
+    background-color: var(--card-bg);
+    border-top: 5px solid var(--accent-neon-pink);
+    font-size: 0.9em;
+    opacity: 0.7;
+}
+
+/* --- Mobile Responsiveness (Less than 768px) --- */
+@media (max-width: 768px) {
+    .navbar {
+        flex-direction: column;
+        text-align: center;
+    }
+    .nav-links {
+        margin-top: 15px;
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+    .nav-links li a, .nav-cta {
+        margin: 5px 10px;
+    }
+
+    .hero-section {
+        flex-direction: column; /* Stack content and visual */
+        text-align: center;
+        min-height: auto;
+        padding-top: 100px;
+    }
+    
+    .hero-content {
+        max-width: 100%;
+    }
+
+    .hero-content h1 {
+        font-size: 3em;
+    }
+    
+    .hero-visual {
+        order: -1; /* Place visual above content on mobile */
+        justify-content: center;
+        margin: 0 auto 30px auto; /* Center it and add space */
+        width: 280px; /* Smaller circle on mobile */
+        height: 280px;
+        box-shadow: 0 0 20px rgba(138, 43, 226, 0.5), inset 0 0 10px rgba(138, 43, 226, 0.3);
+    }
+
+    .hero-actions {
+        display: flex;
+        flex-direction: column;
+    }
+    .hero-actions button {
+        margin: 10px 0 !important;
+    }
+
+    /* Contact Mobile adjustments */
+    .contact-form-container {
+        flex-direction: column;
+        gap: 20px;
+    }
+
+    .contact-info-card {
+        order: -1; /* Place info card above form for prominence */
+    }
+}
